@@ -3,17 +3,17 @@
 int main()
 {
     // window dimensions
-    int width{800};
-    int height{450};
+    const int windowWidth{800};
+    const int windowHeight{450};
 
     // Creates game window
-    InitWindow(width, height, "Dapper Dasher by Quinton Gordon");
+    InitWindow(windowWidth, windowHeight, "Dapper Dasher by Quinton Gordon");
 
     // Sets FPS
     SetTargetFPS(60);
 
     // Game loop
-    while (WindowShouldClose() == false)
+    while (!WindowShouldClose())
     {
         // Starts drawing the game sprites on a white background
         BeginDrawing();
@@ -22,5 +22,7 @@ int main()
         // Stops drawing sprites
         EndDrawing();
     }
+    // Closes window normally if while loop is left
+    CloseWindow();
     
 }
