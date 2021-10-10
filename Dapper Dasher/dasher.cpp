@@ -9,6 +9,13 @@ int main()
     // Creates game window
     InitWindow(windowWidth, windowHeight, "Dapper Dasher by Quinton Gordon");
 
+    // Rectangle dimenstions
+    const int recWidth{50};
+    const int recHeight{80};
+
+    int posY{windowHeight - recHeight};
+    int velocity{0};
+
     // Sets FPS
     SetTargetFPS(60);
 
@@ -18,6 +25,15 @@ int main()
         // Starts drawing the game sprites on a white background
         BeginDrawing();
         ClearBackground(WHITE);
+
+        if (IsKeyPressed(KEY_SPACE))
+        {
+            velocity -= 10;
+        }
+
+        posY += velocity;
+        
+        DrawRectangle(windowWidth/2, posY, recWidth, recHeight, BLUE);
 
         // Stops drawing sprites
         EndDrawing();
