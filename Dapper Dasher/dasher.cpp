@@ -9,12 +9,19 @@ int main()
     // Creates game window
     InitWindow(windowWidth, windowHeight, "Dapper Dasher by Quinton Gordon");
 
+    // acceleration due to gravity
+    const int gravity{1};
+
     // Rectangle dimenstions
     const int recWidth{50};
     const int recHeight{80};
 
-    int posY{windowHeight - recHeight};
+    const int ground{windowHeight - recHeight};
+
+    int posY{ground};
     int velocity{0};
+    bool isInAir{false};
+    const int jumpVel{-22};
 
     // Sets FPS
     SetTargetFPS(60);
@@ -26,11 +33,24 @@ int main()
         BeginDrawing();
         ClearBackground(WHITE);
 
-        if (IsKeyPressed(KEY_SPACE))
+        // apply gravity
+        if (posY < ground)
         {
-            velocity -= 10;
+            velocity += gravity;
+            isInAir = true;
+        }
+        else
+        {
+            velocity = 0;
+            isInAir = false;
         }
 
+        if (IsKeyPressed(KEY_SPACE) && !isInAir)
+        {
+            velocity += jumpVel;
+        }
+
+        // update position
         posY += velocity;
         
         DrawRectangle(windowWidth/2, posY, recWidth, recHeight, BLUE);
