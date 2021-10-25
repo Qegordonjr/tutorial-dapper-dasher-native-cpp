@@ -10,7 +10,7 @@ int main()
     InitWindow(windowWidth, windowHeight, "Dapper Dasher by Quinton Gordon");
 
     // acceleration due to gravity
-    const int gravity{1};
+    const int gravity{1'000};
 
     Texture2D scarfy = LoadTexture("textures/scarfy.png");
     Rectangle scarfyRec;
@@ -26,7 +26,7 @@ int main()
 
     int velocity{0};
     bool isInAir{false};
-    const int jumpVel{-22};
+    const int jumpVel{-600};
 
     // Sets FPS
     SetTargetFPS(60);
@@ -34,6 +34,9 @@ int main()
     // Game loop
     while (!WindowShouldClose())
     {
+        // Delta time (time since last frame)
+        float dT{GetFrameTime()};
+
         // Starts drawing the game sprites on a white background
         BeginDrawing();
         ClearBackground(WHITE);
@@ -41,7 +44,7 @@ int main()
         // apply gravity
         if (scarfyPos.y < ground)
         {
-            velocity += gravity;
+            velocity += gravity * dT;
             isInAir = true;
         }
         else
@@ -56,7 +59,7 @@ int main()
         }
 
         // update position
-        scarfyPos.y += velocity;
+        scarfyPos.y += velocity * dT;
         
         DrawTextureRec(scarfy, scarfyRec, scarfyPos, WHITE);
 
